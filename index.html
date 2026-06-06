@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yashwant Sai. T — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===== VARIABLES ===== */
+:root {
+  --teal:    #00c9a7;
+  --teal2:   #00b4d8;
+  --blue:    #0077b6;
+  --blue2:   #023e8a;
+  --electric:#48cae4;
+  --deep:    #03045e;
+  --bg:      #f8fffe;
+  --bg2:     #edfaf7;
+  --ink:     #0a0a0f;
+  --ink2:    #2d3748;
+  --ink3:    #718096;
+  --white:   #ffffff;
+  --r:       18px;
+}
+
+/* ===== BASE ===== */
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== CURSOR ===== */
+#cur {
+  position: fixed; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--teal); pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .18s, height .18s, background .18s;
+}
+#cur2 {
+  position: fixed; width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid var(--teal2); pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: left .07s, top .07s, border-color .18s, width .18s, height .18s;
+}
+body * { cursor: none; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 1.1rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(248,255,254,0.92); backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0,201,167,0.15);
+}
+.nav-logo {
+  font-size: .95rem; font-weight: 800; letter-spacing: -.02em;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: .8rem; font-weight: 600; color: var(--ink3);
+  text-decoration: none; letter-spacing: .02em; transition: color .2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  font-size: .78rem; font-weight: 700; padding: .45rem 1.2rem; border-radius: 100px;
+  background: linear-gradient(90deg, var(--teal), var(--blue2));
+  color: #fff; text-decoration: none; transition: opacity .2s, transform .15s;
+}
+.nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh; padding: 7rem 3rem 5rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 3rem;
+  max-width: 1100px; margin: 0 auto;
+}
+.hero-left { position: relative; z-index: 2; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Space Mono', monospace; font-size: .68rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 1.75rem;
+}
+.hero-eyebrow-line {
+  width: 32px; height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--blue2));
+}
+.hero-name {
+  font-size: clamp(3.8rem, 6vw, 6.5rem);
+  font-weight: 900; line-height: .9; letter-spacing: -.04em;
+  margin-bottom: 1.5rem;
+}
+.hero-name-top { display: block; color: var(--ink); }
+.hero-name-bot {
+  display: block;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal2) 35%, var(--blue) 70%, var(--blue2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-role {
+  font-family: 'Space Mono', monospace; font-size: .95rem;
+  color: var(--ink3); margin-bottom: 2rem; min-height: 1.5em;
+}
+#typed-text {
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; font-weight: 700;
+}
+#caret {
+  display: inline-block; width: 2.5px; height: .95em;
+  background: var(--teal); vertical-align: -.08em; margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+.hero-desc {
+  font-size: 1rem; color: var(--ink2); line-height: 1.75;
+  max-width: 440px; margin-bottom: 2.5rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ===== BUTTONS ===== */
+.btn-grad {
+  font-size: .85rem; font-weight: 700; padding: .8rem 1.9rem; border-radius: 100px;
+  background: linear-gradient(90deg, var(--teal), var(--blue2));
+  color: #fff; text-decoration: none;
+  transition: transform .15s, box-shadow .2s, opacity .2s;
+}
+.btn-grad:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,119,182,.3); }
+.btn-ghost {
+  font-size: .85rem; font-weight: 700; padding: .8rem 1.9rem; border-radius: 100px;
+  background: transparent; color: var(--blue); text-decoration: none;
+  border: 2px solid rgba(0,119,182,.25);
+  transition: border-color .2s, color .2s, transform .15s;
+}
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-3px); }
+
+/* ===== HERO RIGHT ===== */
+.hero-right { display: flex; flex-direction: column; gap: 1rem; }
+.hero-big-card {
+  border-radius: 24px; overflow: hidden;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal2) 40%, var(--blue) 75%, var(--blue2) 100%);
+  padding: 2.5rem; color: #fff; position: relative;
+}
+.hero-big-card::before {
+  content: 'YK'; position: absolute; right: -1.5rem; bottom: -2rem;
+  font-size: 9rem; font-weight: 900; letter-spacing: -.06em;
+  color: rgba(255,255,255,.1); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.hero-card-label {
+  font-family: 'Space Mono', monospace; font-size: .65rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; opacity: .7; margin-bottom: .5rem;
+}
+.hero-card-loc { font-size: 1.4rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .5rem; }
+.hero-card-sub { font-size: .85rem; opacity: .75; line-height: 1.5; }
+.hero-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.hstat {
+  border-radius: 16px; padding: 1.2rem 1.4rem;
+  background: var(--bg); border: 1.5px solid rgba(0,201,167,.15);
+}
+.hstat-n {
+  font-size: 2.2rem; font-weight: 900; letter-spacing: -.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hstat-l {
+  font-size: .72rem; font-weight: 600; color: var(--ink3);
+  text-transform: uppercase; letter-spacing: .06em; margin-top: .2rem;
+}
+
+/* ===== MARQUEE ===== */
+.mq-wrap { overflow: hidden; background: var(--deep); padding: .85rem 0; }
+.mq-track {
+  display: flex; gap: 2.5rem; white-space: nowrap;
+  animation: mq 22s linear infinite; width: max-content;
+}
+.mq-item {
+  font-weight: 700; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); display: flex; align-items: center; gap: .75rem;
+}
+.mq-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ===== SECTION BASE ===== */
+.sec { padding: 7rem 3rem; max-width: 1100px; margin: 0 auto; }
+.sec-kicker {
+  font-family: 'Space Mono', monospace; font-size: .68rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: .6rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.sec-kicker::before {
+  content: ''; width: 24px; height: 2.5px; display: block;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+}
+.sec-h {
+  font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 900;
+  letter-spacing: -.04em; line-height: 1.05; margin-bottom: 3.5rem;
+}
+.sec-h em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== ABOUT ===== */
+.about-placeholder {
+  border: 2.5px dashed rgba(0,201,167,.35);
+  border-radius: 24px; padding: 4rem 2.5rem; text-align: center;
+  background: rgba(0,201,167,.03);
+}
+.aph-title {
+  font-size: 1.4rem; font-weight: 800; color: var(--ink);
+  margin-bottom: .75rem; letter-spacing: -.02em;
+}
+.aph-sub {
+  font-size: .95rem; color: var(--ink3); line-height: 1.65;
+  max-width: 440px; margin: 0 auto 1.75rem;
+}
+.aph-btn {
+  display: inline-block; font-size: .8rem; font-weight: 700;
+  padding: .6rem 1.5rem; border-radius: 100px;
+  background: linear-gradient(90deg, var(--teal), var(--blue2));
+  color: #fff; text-decoration: none; margin-bottom: 2rem;
+  transition: opacity .2s, transform .15s;
+}
+.aph-btn:hover { opacity: .88; transform: translateY(-2px); }
+.skills-row { display: flex; flex-wrap: wrap; gap: .55rem; justify-content: center; }
+.sk {
+  font-size: .78rem; font-weight: 700; padding: .35rem .9rem; border-radius: 100px;
+  border: 1.5px solid rgba(0,180,216,.3); color: var(--blue);
+  background: rgba(0,180,216,.07); transition: transform .15s, background .2s, border-color .2s;
+}
+.sk:hover { transform: translateY(-2px); background: rgba(0,180,216,.14); border-color: var(--blue); }
+
+/* ===== PROJECTS ===== */
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.proj-card {
+  border-radius: var(--r); overflow: hidden;
+  background: var(--white); border: 1.5px solid rgba(0,201,167,.15);
+  transition: transform .22s, box-shadow .22s;
+}
+.proj-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(0,119,182,.1); }
+.proj-card-wide { grid-column: span 2; }
+.proj-top {
+  padding: 2rem 2rem 1.5rem; min-height: 220px;
+  position: relative;
+  background: linear-gradient(135deg, #edfaf7 0%, #e0f4fc 50%, #ddeeff 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.proj-card-wide .proj-top { min-height: 240px; }
+.proj-num {
+  position: absolute; top: 1.5rem; left: 2rem;
+  font-family: 'Space Mono', monospace; font-size: .62rem; font-weight: 700;
+  letter-spacing: .2em; color: rgba(0,119,182,.4);
+}
+.proj-coming {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: 'Space Mono', monospace; font-size: .65rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--blue2); background: rgba(0,119,182,.08);
+  border: 1.5px dashed rgba(0,119,182,.25);
+  padding: .3rem .8rem; border-radius: 100px;
+  position: absolute; top: 1.5rem; right: 1.5rem;
+}
+.proj-empty-art {
+  width: 64px; height: 64px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--teal), var(--blue2));
+  margin-bottom: 1rem; opacity: .22;
+}
+.proj-title-empty {
+  font-size: 1.5rem; font-weight: 900; letter-spacing: -.03em;
+  color: rgba(0,60,120,.18); font-style: italic;
+}
+.proj-body {
+  padding: 1.5rem 2rem 0;
+}
+.proj-title {
+  font-size: 1.3rem; font-weight: 800; letter-spacing: -.025em; margin-bottom: .5rem;
+  color: var(--ink);
+}
+.proj-desc {
+  font-size: .875rem; color: var(--ink2); line-height: 1.65; margin-bottom: 1rem;
+}
+.proj-bottom {
+  padding: 1.25rem 2rem; border-top: 1px solid rgba(0,201,167,.1);
+}
+.proj-meta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; }
+.proj-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+.proj-tag {
+  font-size: .7rem; font-weight: 700; padding: .2rem .65rem; border-radius: 100px;
+  background: var(--bg2); color: var(--blue);
+}
+.proj-arrow {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid rgba(0,119,182,.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue); font-size: .95rem; text-decoration: none; flex-shrink: 0;
+  transition: background .2s, border-color .2s, transform .15s;
+}
+.proj-arrow:hover { background: var(--blue); border-color: var(--blue); color: #fff; transform: scale(1.1); }
+.proj-add-label { font-size: .85rem; font-weight: 600; color: var(--ink3); font-style: italic; }
+
+/* ===== JOURNEY / TIMELINE ===== */
+.tl { position: relative; padding-left: 2.5rem; }
+.tl::before {
+  content: ''; position: absolute; left: 7px; top: 8px; bottom: 0; width: 2.5px;
+  background: linear-gradient(to bottom, var(--teal), var(--blue), rgba(0,119,182,0));
+}
+.tl-item { position: relative; margin-bottom: 2.75rem; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot { position: absolute; left: -2.18rem; top: 4px; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg2); }
+.tl-dot-teal  { background: var(--teal);     box-shadow: 0 0 0 2px rgba(0,201,167,.3); }
+.tl-dot-blue  { background: var(--blue2);    box-shadow: 0 0 0 2px rgba(2,62,138,.3); }
+.tl-dot-elec  { background: var(--electric); box-shadow: 0 0 0 2px rgba(72,202,228,.3); }
+.tl-pill {
+  display: inline-block; font-size: .68rem; font-weight: 700;
+  padding: .22rem .75rem; border-radius: 100px; margin-bottom: .5rem;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.tl-pill-teal { background: rgba(0,201,167,.12); color: #006b55; }
+.tl-pill-blue { background: rgba(0,119,182,.1);  color: #004e7a; }
+.tl-pill-elec { background: rgba(72,202,228,.15); color: #0369a1; }
+.tl-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: .3rem; }
+.tl-sub   { font-size: .875rem; color: var(--ink3); line-height: 1.65; }
+
+/* ===== CONTACT ===== */
+.contact-strip {
+  border-radius: 28px; overflow: hidden;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal2) 30%, var(--blue) 65%, var(--blue2) 100%);
+  padding: 5rem 4rem;
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 3rem;
+  position: relative;
+}
+.contact-strip::after {
+  content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(2,62,138,.35)); pointer-events: none;
+}
+.contact-overline {
+  font-family: 'Space Mono', monospace; font-size: .65rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: .75rem;
+}
+.contact-title {
+  font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900;
+  letter-spacing: -.04em; line-height: 1; color: #fff; margin-bottom: .75rem;
+}
+.contact-sub { font-size: 1rem; color: rgba(255,255,255,.7); line-height: 1.6; max-width: 400px; }
+.contact-right { display: flex; flex-direction: column; gap: .75rem; position: relative; z-index: 1; }
+.contact-btn {
+  display: block; font-size: .85rem; font-weight: 700;
+  padding: .75rem 1.75rem; border-radius: 100px; text-decoration: none;
+  text-align: center; white-space: nowrap;
+  transition: transform .15s, opacity .2s;
+}
+.contact-btn:hover { transform: translateY(-2px); opacity: .9; }
+.contact-btn-white   { background: #fff; color: var(--blue2); }
+.contact-btn-outline { background: rgba(255,255,255,.12); color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--deep); color: rgba(255,255,255,.4);
+  padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .5rem; font-size: .75rem; font-weight: 600;
+  padding-bottom: 3.5rem;
+}
+.footer-accent { color: var(--teal); }
+
+/* ===== STATUS BAR ===== */
+.sbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(3,4,94,.97); backdrop-filter: blur(12px);
+  padding: .42rem 2rem; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Space Mono', monospace; font-size: .6rem; color: rgba(255,255,255,.35);
+}
+.sdot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); margin-right: .45rem; animation: sdp 2.5s ease infinite;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@keyframes mq    { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes sdp   { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+/* ===== SCROLL FADE-IN ===== */
+.appear { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.appear.vis { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 780px) {
+  #hero { grid-template-columns: 1fr; padding-top: 6rem; }
+  .hero-right { display: none; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card-wide { grid-column: span 1; }
+  .contact-strip { grid-template-columns: 1fr; padding: 3rem 2rem; }
+  .nav-links { display: none; }
+  .sec { padding: 5rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Yashwant Sai. T</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      CS Student &amp; Builder — Bangalore
+    </div>
+    <h1 class="hero-name">
+      <span class="hero-name-top">Hey, I'm</span>
+      <span class="hero-name-bot">Yashwant.</span>
+    </h1>
+    <div class="hero-role">
+      <span id="typed-text"></span><span id="caret"></span>
+    </div>
+    <p class="hero-desc">
+      IV Semester CS Engineering student at MVJCE, Bangalore.
+      I build things on the web that are meant to matter —
+      and I'm just getting started.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-grad">See my work</a>
+      <a href="#about" class="btn-ghost">About me</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-big-card">
+      <div class="hero-card-label">Based in</div>
+      <div class="hero-card-loc">Bangalore, Karnataka</div>
+      <div class="hero-card-sub">MVJCE · B.E. CSE · IV Sem<br>Open to opportunities</div>
+    </div>
+    <div class="hero-stats-row">
+      <div class="hstat">
+        <div class="hstat-n" data-count="2">0</div>
+        <div class="hstat-l">Projects</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n" data-count="4">0</div>
+        <div class="hstat-l">Semesters</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track" id="mq-track"></div>
+</div>
+
+<!-- ============================================================
+     ABOUT — FILL THIS IN YOURSELF
+     Replace the placeholder block below with your own content.
+     Example structure:
+
+     <div class="about-grid">
+       <div>
+         <p>Your story goes here...</p>
+         <p>What drives you, what you love...</p>
+       </div>
+       <div>
+         ... skills, photo, or fun facts ...
+       </div>
+     </div>
+     ============================================================ -->
+<section id="about" style="background:var(--bg2);padding:1px 0;">
+  <div class="sec appear">
+    <div class="sec-kicker">01 &mdash; About me</div>
+    <h2 class="sec-h">My story,<br>in my <em>own words.</em></h2>
+
+    <div class="about-placeholder">
+      <div style="font-size:2.2rem;margin-bottom:1rem;">&#9997;&#65039;</div>
+      <div class="aph-title">This section is yours to write</div>
+      <p class="aph-sub">
+        Tell the world who you are — your background, what drives you,
+        what you love building, and what makes you <em>you</em>.
+        No filler here, just your real story.
+      </p>
+      <div class="skills-row">
+        <span class="sk">JavaScript</span>
+        <span class="sk">TypeScript</span>
+        <span class="sk">React</span>
+        <span class="sk">Node.js</span>
+        <span class="sk">Python</span>
+        <span class="sk">C / C++</span>
+        <span class="sk">ARM</span>
+        <span class="sk">SQL</span>
+        <span class="sk">Leaflet.js</span>
+        <span class="sk">Git</span>
+        <span class="sk">Maps API</span>
+        <span class="sk">ReportLab</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS — ADD YOUR PROJECTS HERE
+     For each project replace:
+       - proj-num      → 001, 002, 003 ...
+       - proj-title    → Your project name
+       - proj-desc     → Short description (2-3 sentences)
+       - proj-tag      → Tech tags (add as many as needed)
+       - href on arrow → Link to GitHub repo or live site
+
+     The first card (proj-card-wide) spans full width — use it
+     for your best/featured project.
+
+     To add a 4th card just duplicate a .proj-card block.
+     ============================================================ -->
+<section id="projects" style="padding:1px 0;">
+  <div class="sec appear">
+    <div class="sec-kicker">02 &mdash; Projects</div>
+    <h2 class="sec-h">Things I've<br><em>shipped.</em></h2>
+
+    <div class="proj-grid">
+
+      <!-- FEATURED PROJECT (full width) -->
+      <div class="proj-card proj-card-wide">
+        <div class="proj-top">
+          <div class="proj-num">001 / FEATURED</div>
+          <div class="proj-coming">Coming soon</div>
+          <div class="proj-empty-art"></div>
+          <div class="proj-title-empty">Add your featured project here &rarr;</div>
+        </div>
+        <!--
+        WHEN READY — replace proj-top content and add proj-body like this:
+
+        <div class="proj-top" style="background:linear-gradient(135deg,#edfaf7,#ddeeff);">
+          <div class="proj-num">001 / FEATURED</div>
+          <div style="font-size:3rem;">&#128161;</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Your Project Name</div>
+          <p class="proj-desc">Your project description goes here. Keep it to 2-3 punchy sentences.</p>
+        </div>
+        -->
+        <div class="proj-bottom">
+          <div class="proj-meta">
+            <div class="proj-tags">
+              <!-- <span class="proj-tag">React</span> -->
+              <!-- <span class="proj-tag">Node.js</span> -->
+            </div>
+            <a href="#" class="proj-arrow">&rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-num">002</div>
+          <div class="proj-coming">Coming soon</div>
+          <div class="proj-empty-art"></div>
+          <div class="proj-title-empty">Project two</div>
+        </div>
+        <div class="proj-bottom">
+          <div class="proj-meta">
+            <div class="proj-tags"></div>
+            <a href="#" class="proj-arrow">&rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-num">003</div>
+          <div class="proj-coming">Coming soon</div>
+          <div class="proj-empty-art"></div>
+          <div class="proj-title-empty">Project three</div>
+        </div>
+        <div class="proj-bottom">
+          <div class="proj-meta">
+            <div class="proj-tags"></div>
+            <a href="#" class="proj-arrow">&rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey" style="background:var(--bg2);padding:1px 0;">
+  <div class="sec appear">
+    <div class="sec-kicker">03 &mdash; Journey</div>
+    <h2 class="sec-h">Where I've<br><em>been so far.</em></h2>
+
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-teal"></div>
+        <span class="tl-pill tl-pill-teal">2023 &mdash; Present</span>
+        <div class="tl-title">B.E. Computer Science Engineering</div>
+        <div class="tl-sub">MVJ College of Engineering (MVJCE) &middot; IV Semester &middot; Bangalore, Karnataka</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-blue"></div>
+        <span class="tl-pill tl-pill-blue">2024 &mdash; Active</span>
+        <div class="tl-title">Analysis &amp; Design of Algorithms (MVJ22CS41)</div>
+        <div class="tl-sub">AVL Trees &middot; Dynamic Programming &middot; Greedy Algorithms &middot; Prim's &middot; Kruskal's &middot; Dijkstra's &middot; Huffman Coding</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-elec"></div>
+        <span class="tl-pill tl-pill-elec">2024 &mdash; Active</span>
+        <div class="tl-title">Microcontrollers &amp; Embedded Systems (BCS402)</div>
+        <div class="tl-sub">ARM Exception &amp; Interrupt Handling &middot; C Compiler Optimizations &middot; ARM Cortex-M Architecture &middot; Modules 3 &amp; 4</div>
+      </div>
+
+      <!-- Add more timeline items here following the same pattern -->
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding:1px 0;">
+  <div class="sec appear">
+    <div class="sec-kicker">04 &mdash; Contact</div>
+    <div class="contact-strip">
+      <div>
+        <div class="contact-overline">Open for work &amp; collabs</div>
+        <div class="contact-title">Let's build<br>something.</div>
+        <p class="contact-sub">Have an idea, a project, or just want to talk tech? I'm always up for a good conversation.</p>
+      </div>
+      <div class="contact-right">
+        <a href="mailto:yashwanth50022@gmail.com" class="contact-btn contact-btn-white">Send an email</a>
+        <!-- UPDATE: Replace # with your real profile URLs -->
+        <a href="https://github.com/yashwanth50022" class="contact-btn contact-btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/yashwanth-sai-t" class="contact-btn contact-btn-outline">LinkedIn</a>
+        <a href="#" class="contact-btn contact-btn-outline">Resume &nearr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Yashwant Sai. T &middot; Bangalore, India</span>
+  <span>Built with <span class="footer-accent">teal &amp; blue</span></span>
+  <span>IV Sem &middot; MVJCE &middot; CSE</span>
+</footer>
+
+<!-- STATUS BAR -->
+<div class="sbar">
+  <span><span class="sdot"></span>Online &middot; Bangalore, IN</span>
+  <span id="stime"></span>
+  <span>IV Sem &middot; MVJCE &middot; CS Engineering</span>
+</div>
+
+<script>
+/* ── Cursor ── */
+const cur  = document.getElementById('cur');
+const cur2 = document.getElementById('cur2');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  setTimeout(() => { cur2.style.left = mx + 'px'; cur2.style.top = my + 'px'; }, 75);
+});
+document.querySelectorAll('a, button, .proj-card, .sk').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width  = '20px'; cur.style.height = '20px'; cur.style.background = 'var(--blue)';
+    cur2.style.borderColor = 'var(--blue)'; cur2.style.width = '44px'; cur2.style.height = '44px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width  = '12px'; cur.style.height = '12px'; cur.style.background = 'var(--teal)';
+    cur2.style.borderColor = 'var(--teal2)'; cur2.style.width = '36px'; cur2.style.height = '36px';
+  });
+});
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* ── Marquee ── */
+const mqItems = [
+  'Full Stack Dev', 'Ocean Vibes', 'Bangalore Builder',
+  'MVJCE · IV Sem', 'React · Node.js', 'ARM Cortex-M',
+  'Civic Tech', 'Open Source', 'Problem Solver', "Let's Build"
+];
+const track = document.getElementById('mq-track');
+const doubled = [...mqItems, ...mqItems];
+track.innerHTML = doubled.map(i =>
+  `<span class="mq-item"><span class="mq-dot"></span>${i}</span>`
+).join('');
+
+/* ── Typewriter ── */
+const roles = [
+  'Full Stack Developer',
+  'CS Engineering Student',
+  'Civic Tech Builder',
+  'Problem Solver',
+  'Bangalore Builder'
+];
+let ri = 0, ci = 0, del = false;
+const tel = document.getElementById('typed-text');
+function tw() {
+  const w = roles[ri];
+  if (!del) {
+    tel.textContent = w.slice(0, ++ci);
+    if (ci === w.length) { setTimeout(() => { del = true; }, 1800); setTimeout(tw, 100); return; }
+  } else {
+    tel.textContent = w.slice(0, --ci);
+    if (ci === 0) { del = false; ri = (ri + 1) % roles.length; setTimeout(tw, 380); return; }
+  }
+  setTimeout(tw, del ? 52 : 82);
+}
+tw();
+
+/* ── Scroll fade-in ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.appear').forEach(el => obs.observe(el));
+
+/* ── Count-up ── */
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, end = +el.dataset.count; let c = 0;
+      const t = setInterval(() => { c++; el.textContent = c; if (c >= end) clearInterval(t); }, 70);
+      cObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+/* ── Live IST clock ── */
+function tick() {
+  document.getElementById('stime').textContent = new Date().toLocaleTimeString('en-IN', {
+    timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+}
+tick(); setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
